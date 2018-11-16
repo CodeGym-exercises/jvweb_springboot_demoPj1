@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Delete Page</title>
+</head>
+<body>
+<h1>Delete Page</h1>
+<a href="/">Back to list</a><br>
+<span style="color: green" th:if="${message}" th:text="${message}"></span><br>
+Name: <span th:text="${customer.name}"></span><br>
+Email: <span th:text="${customer.email}"></span><br>
+Do you wana to delete this customer??
+<form action="/delete" method="post" >
+    <input type="hidden" name="id" th:value="${customer.id}">
+    <input type="submit" value="delete">
+</form>
+</body>
+</html>

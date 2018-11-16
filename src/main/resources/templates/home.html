@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>HomePage</title>
+    <style>
+        table, th, td{
+            border:1px solid #000;
+        }
+    </style>
+</head>
+<body>
+<h1>Welcome to homepage</h1>
+<a href="/create">New customer</a>
+<form action="/search" method="get">
+    search: <input type="text" name="search">
+    <input type="submit" value="search">
+</form>
+<div th:if="${results}">
+    <table>
+        <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+        <tr th:each="c : ${results}">
+            <td><a th:text="${c.id}" th:href="@{/view/{id}(id=${c.id})}" ></a></td>
+            <td th:text="${c.name}"></td>
+            <td th:text="${c.email}"></td>
+            <td><a th:href="@{/edit/{id}(id=${c.id})}">edit</a></td>
+            <td><a th:href="@{/delete/{id}(id=${c.id})}">delete</a></td>
+        </tr>
+    </table>
+</div>
+<table>
+    <tr>
+        <th>#</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Edit</th>
+        <th>Delete</th>
+    </tr>
+    <tr th:each="c : ${customers}">
+        <td><a th:text="${c.id}" th:href="@{/view/{id}(id=${c.id})}" ></a></td>
+        <td th:text="${c.name}"></td>
+        <td th:text="${c.email}"></td>
+        <td><a th:href="@{/edit/{id}(id=${c.id})}">edit</a></td>
+        <td><a th:href="@{/delete/{id}(id=${c.id})}">delete</a></td>
+    </tr>
+</table>
+
+<div>
+    <a th:href="@{'/customers'(page=${customers.number-1})}" th:if="${customers.hasPrevious()}">previous</a>
+    <span th:text="${customers.number + 1}"></span>/<span th:text="${customers.totalPages}"></span>
+    <a th:href="@{'/customers'(page=${customers.number+1})}" th:if="${customers.hasNext()}">next</a>
+
+</div>
+</body>
+</html>
